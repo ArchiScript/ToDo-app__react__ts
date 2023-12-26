@@ -1,19 +1,15 @@
-import Todo, { ITodo } from "../todo/Todo";
-interface ITodos {
-  className: string;
-  todos: ITodo[];
-}
+import Todo from "../todo/Todo";
+import { ITodos, ITodo } from "../types";
 
 export default function Todos(props: ITodos) {
   const mapTodos = (arr: ITodo[]) => {
-    return arr.map((todo, i) => {
-      return <li>{<Todo title={todo.title} />}</li>;
+    return arr.map((todo) => {
+      return <li key={todo.id}>{<Todo {...todo} />}</li>;
     });
   };
-
   return (
     <>
-      <ol className={props.className}>{mapTodos(props.todos)}</ol>
+      <ul className={props.className}>{mapTodos(props.todos)}</ul>
     </>
   );
 }

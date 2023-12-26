@@ -1,17 +1,11 @@
 import React from "react";
-import "./container.scss"
+import "./container.scss";
+import { ContainerProps } from "../types";
 
-
-interface ContainerProps {
-  children: React.ReactNode;
-}
-
-export default  function Container({children}: ContainerProps){
+export default function Container(props: ContainerProps) {
   return (
     <>
-    <div className="container">{children}</div>
-    
+      <div className="container">{props.children}</div>
     </>
-  )
-
+  );
 }
