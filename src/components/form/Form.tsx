@@ -10,7 +10,7 @@ export default function Form(props: IForm) {
           value={props.inputValue}
           onChange={props.handleInputChange}
         />
-        <button className="form__button">add</button>
+        <button className="form__button"></button>
       </form>
     </>
   );

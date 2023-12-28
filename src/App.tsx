@@ -50,22 +50,24 @@ function App() {
 
   const addTodos = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTodos((currentTodos) => [
-      ...currentTodos,
-      {
-        id: crypto.randomUUID(),
-        title: inputValue,
-        completed: false,
-        toggleChecked,
-        deleteTodo
-      }
-    ]);
-    setInputValue("");
+    if (inputValue && inputValue.trim() !== "") {
+      setTodos((currentTodos) => [
+        ...currentTodos,
+        {
+          id: crypto.randomUUID(),
+          title: inputValue,
+          completed: false,
+          toggleChecked,
+          deleteTodo
+        }
+      ]);
+      setInputValue("");
+    }
   };
   return (
     <>
       <Container>
-        <Title txt="ToDo application" />
+        <Title txt="Todo App" />
         <Form
           todos={todos}
           addTodos={addTodos}
@@ -75,7 +77,6 @@ function App() {
         <Todos
           className="todo__list"
           todos={todos}
-          addTodos={addTodos}
           toggleChecked={toggleChecked}
           deleteTodo={deleteTodo}
         />

@@ -1,16 +1,45 @@
 .todo{
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  &>*{
-    padding: 5px 10px;
-    margin: 5px 5px;
-  }
+  margin: 10px 0;
+ 
+ 
   &__title{
-    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+    
+    cursor: pointer;
+  }
+  
+  &__delete{
+    cursor: pointer;
+    height: 30px;
+    background-color: #f87a7a;
+    border-radius: 5px;
+    border: 2px solid #f87a7a;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 5px 10px;
+    margin-left: 20px;
+  }
+  &__delete:hover{
+    
+    background-color:  rgb(252, 175, 175);
+  }
+  &__chb{
+    margin-right: 20px;
+    cursor: pointer;
   }
 }
 ul{
   list-style: none;
+  padding: 0;
+}
+.completed{
+text-decoration: line-through;
+color: rgb(201, 201, 201);
 }

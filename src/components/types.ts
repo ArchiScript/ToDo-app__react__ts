@@ -18,7 +18,6 @@ export interface ITodo {
 export interface ITodos {
   className: string;
   todos: ITodo[];
-  addTodos: (e: FormEvent<HTMLFormElement>) => void;
   toggleChecked(id: string, completed: boolean): void;
   deleteTodo(id: string): void;
 }
