@@ -1,13 +1,10 @@
-interface TitleProps{
-  txt: string
-}
-
-export function Title(props:TitleProps){
-  return(
+import { ITitle } from "../types";
+export function Title(props: ITitle) {
+  return (
     <>
       <div className="title">
-        <h1 >{props.txt}</h1>
+        <h1>{props.txt}</h1>
       </div>
     </>
-  )
+  );
 }

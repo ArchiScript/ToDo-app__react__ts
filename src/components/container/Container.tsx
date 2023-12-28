@@ -5,7 +5,7 @@ import { ContainerProps } from "../types";
 export default function Container(props: ContainerProps) {
   return (
     <>
-      <div className="container">{props.children}</div>
+      <div className="todoapp">{props.children}</div>
     </>
   );
 }
