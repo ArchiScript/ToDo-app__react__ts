@@ -6,6 +6,7 @@ export default function Form(props: IForm) {
     <>
       <form onSubmit={props.addTodos} className="form">
         <input
+          className="form__input"
           type="text"
           value={props.inputValue}
           onChange={props.handleInputChange}

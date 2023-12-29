@@ -1,7 +1,6 @@
 import "./todos.scss";
 import Todo from "../todo/Todo";
 import { ITodos, ITodo } from "../types";
-import { listeners } from "process";
 
 export default function Todos(props: ITodos) {
   const mapTodos = (arr: ITodo[]) => {

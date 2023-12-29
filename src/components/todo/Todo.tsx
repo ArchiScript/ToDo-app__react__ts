@@ -13,7 +13,7 @@ export default function Todo(props: ITodo) {
             checked={props.completed}
             onChange={(e) => props.toggleChecked(props.id, e.target.checked)}
           />
-          {props.title}
+          <span className="todo__title-text">{props.title}</span>
         </label>
 
         <button

@@ -7,6 +7,7 @@ import Todos from "./components/todos/Todos";
 import { useState } from "react";
 import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
+import Datepicker from "./components/datepicker/Datepicker";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(getTodoFromStorage());
@@ -64,10 +65,22 @@ function App() {
       setInputValue("");
     }
   };
+
+  function today(): string {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    });
+    return formattedDate;
+  }
+
   return (
     <>
       <Container>
         <Title txt="Todo App" />
+        <Datepicker range={true} startDate={new Date()} />
         <Form
           todos={todos}
           addTodos={addTodos}

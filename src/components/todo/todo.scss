@@ -7,13 +7,14 @@
  
  
   &__title{
+   
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
     color: white;
-    
     cursor: pointer;
   }
+ 
   
   &__delete{
     cursor: pointer;
