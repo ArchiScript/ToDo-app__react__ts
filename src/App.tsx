@@ -80,7 +80,11 @@ function App() {
     <>
       <Container>
         <Title txt="Todo App" />
-        <Datepicker range={true} startDate={new Date()} />
+        <Datepicker
+          range={true}
+          startDate={new Date()}
+          multipleDatesSeparator=" - "
+        />
         <Form
           todos={todos}
           addTodos={addTodos}
