@@ -66,25 +66,11 @@ function App() {
     }
   };
 
-  function today(): string {
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString("en-US", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    });
-    return formattedDate;
-  }
-
   return (
     <>
       <Container>
         <Title txt="Todo App" />
-        <Datepicker
-          range={true}
-          startDate={new Date()}
-          multipleDatesSeparator=" - "
-        />
+
         <Form
           todos={todos}
           addTodos={addTodos}

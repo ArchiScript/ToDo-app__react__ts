@@ -18,8 +18,12 @@
 
   width: 100%;
   display: flex;
+  flex-direction: column;
+&__new-todo{
+  display: flex;
+  justify-content: space-between;
   flex-direction: row;
-
+}
   button{
     border: 1px solid rgb(150, 150, 150);
     border-radius: 4px;
