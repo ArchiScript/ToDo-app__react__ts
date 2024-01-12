@@ -8,9 +8,13 @@ import { useState } from "react";
 import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
 import Datepicker from "./components/datepicker/Datepicker";
+import { TodoContext } from "./context";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(getTodoFromStorage());
+  const [inputValue, setInputValue] = useState("");
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>();
 
   function getTodoFromStorage(): ITodo[] {
     if (localStorage.getItem("TODOS") !== null) {
@@ -43,25 +47,27 @@ function App() {
     });
   }
 
-  const [inputValue, setInputValue] = useState("");
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
+  function createNewTodo(): ITodo {
+    const newTodo = {
+      id: crypto.randomUUID(),
+      title: inputValue,
+      completed: false,
+      date: currentDate,
+      toggleChecked,
+      deleteTodo
+    };
+    setCurrentTodo(newTodo);
+    return newTodo;
+  }
+
   const addTodos = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue && inputValue.trim() !== "") {
-      setTodos((currentTodos) => [
-        ...currentTodos,
-        {
-          id: crypto.randomUUID(),
-          title: inputValue,
-          completed: false,
-          toggleChecked,
-          deleteTodo
-        }
-      ]);
+      setTodos((currentTodos) => [...currentTodos]);
       setInputValue("");
     }
   };
@@ -70,19 +76,20 @@ function App() {
     <>
       <Container>
         <Title txt="Todo App" />
-
-        <Form
-          todos={todos}
-          addTodos={addTodos}
-          inputValue={inputValue}
-          handleInputChange={handleInputChange}
-        />
-        <Todos
-          className="todo__list"
-          todos={todos}
-          toggleChecked={toggleChecked}
-          deleteTodo={deleteTodo}
-        />
+        <TodoContext.Provider value={currentTodo}>
+          <Form
+            todos={todos}
+            addTodos={addTodos}
+            inputValue={inputValue}
+            handleInputChange={handleInputChange}
+          />
+          <Todos
+            className="todo__list"
+            todos={todos}
+            toggleChecked={toggleChecked}
+            deleteTodo={deleteTodo}
+          />
+        </TodoContext.Provider>
       </Container>
     </>
   );

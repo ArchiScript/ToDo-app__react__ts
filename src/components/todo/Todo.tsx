@@ -1,8 +1,13 @@
 import "./todo.scss";
 import { ITodo } from "../types";
+import formatDate from "../helpers/formatDate";
+import { TodoContext } from "../../context";
+import { useContext } from "react";
 
 export default function Todo(props: ITodo) {
   const todoStyle: string = props.completed ? ` completed` : "";
+  const currentTodo = useContext(TodoContext);
+
   return (
     <>
       <div className="todo">
@@ -14,6 +19,9 @@ export default function Todo(props: ITodo) {
             onChange={(e) => props.toggleChecked(props.id, e.target.checked)}
           />
           <span className="todo__title-text">{props.title}</span>
+          <span className="todo__date">
+            {formatDate(currentTodo?.date as Date, "RU")}
+          </span>
         </label>
 
         <button

@@ -11,6 +11,7 @@ export interface ITodo {
   id: string;
   title: string;
   completed: boolean;
+  date: Date;
   toggleChecked(id: string, completed: boolean): void;
   deleteTodo(id: string): void;
 }

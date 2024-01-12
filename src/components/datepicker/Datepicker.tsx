@@ -2,16 +2,7 @@ import AirDatepicker, { AirDatepickerOptions } from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import { useEffect, useRef, useState } from "react";
 import "./datepicker.scss";
-
-function formatDate(
-  date: Date,
-  lang: string,
-  dateOpts?: Intl.DateTimeFormatOptions
-) {
-  dateOpts = dateOpts || { day: "numeric", month: "numeric", year: "numeric" };
-  let f = new Intl.DateTimeFormat(lang, dateOpts);
-  return f.format(date);
-}
+import formatDate from "../helpers/formatDate";
 
 export default function Datepicker(
   props: AirDatepickerOptions<HTMLElement> | undefined
