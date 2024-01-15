@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.18",
     "air-datepicker": "^3.4.0",
     "react": "^18.2.0",
+    "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "sass": "^1.69.5",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-datepicker": "^4.19.5",
     "commitizen": "^4.3.0",
     "gh-pages": "^6.1.1"
   }

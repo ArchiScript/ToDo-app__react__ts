@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./App.scss";
 import { Title } from "./components/title/Title";
 import Form from "./components/form/Form";
@@ -7,14 +7,17 @@ import Todos from "./components/todos/Todos";
 import { useState } from "react";
 import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
-import Datepicker from "./components/datepicker/Datepicker";
+// import Datepicker from "./components/datepicker/Datepicker";
+
 import { TodoContext } from "./context";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(getTodoFromStorage());
   const [inputValue, setInputValue] = useState("");
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>();
+  const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>(
+    createNewTodo()
+  );
 
   function getTodoFromStorage(): ITodo[] {
     if (localStorage.getItem("TODOS") !== null) {
@@ -26,9 +29,30 @@ function App() {
     return [];
   }
 
+  function createNewTodo(): ITodo {
+    const newTodo = {
+      id: crypto.randomUUID(),
+      title: inputValue,
+      completed: false,
+      date: currentDate,
+      toggleChecked,
+      deleteTodo
+    };
+    return newTodo;
+  }
+
+  function modifyCurrentTodo(todoPropertyObj: Partial<ITodo>): void {
+    setCurrentTodo((prevTodo) => ({
+      ...(prevTodo as ITodo),
+      ...todoPropertyObj
+    }));
+  }
+
   useEffect(() => {
     localStorage.setItem("TODOS", JSON.stringify(todos));
   }, [todos]);
+
+  console.log(todos);
 
   function toggleChecked(id: string, completed: boolean) {
     setTodos((currentTodos) => {
@@ -49,25 +73,18 @@ function App() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+    modifyCurrentTodo({ title: e.target.value });
   };
 
-  function createNewTodo(): ITodo {
-    const newTodo = {
-      id: crypto.randomUUID(),
-      title: inputValue,
-      completed: false,
-      date: currentDate,
-      toggleChecked,
-      deleteTodo
-    };
-    setCurrentTodo(newTodo);
-    return newTodo;
+  function changeDate(date: Date) {
+    setCurrentDate(date);
   }
 
   const addTodos = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (inputValue && inputValue.trim() !== "") {
-      setTodos((currentTodos) => [...currentTodos]);
+      setTodos((currentTodos) => [...currentTodos, currentTodo as ITodo]);
       setInputValue("");
     }
   };
@@ -78,6 +95,7 @@ function App() {
         <Title txt="Todo App" />
         <TodoContext.Provider value={currentTodo}>
           <Form
+            modifyCurrentTodo={modifyCurrentTodo}
             todos={todos}
             addTodos={addTodos}
             inputValue={inputValue}

@@ -1,5 +1,5 @@
 @use "../form/form.scss" as f;
-.todo__detepicker{
+.todo__detepicker,.react-datepicker__input-container input{
   @extend %form-input;
   max-width: 200px;
   align-self: flex-start;

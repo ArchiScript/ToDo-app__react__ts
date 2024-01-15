@@ -11,7 +11,7 @@ export interface ITodo {
   id: string;
   title: string;
   completed: boolean;
-  date: Date;
+  date: Date | Date[];
   toggleChecked(id: string, completed: boolean): void;
   deleteTodo(id: string): void;
 }
@@ -23,6 +23,7 @@ export interface ITodos {
   deleteTodo(id: string): void;
 }
 export interface IForm {
+  modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
   inputValue: string;
   todos: ITodo[];
   addTodos: (e: FormEvent<HTMLFormElement>) => void;

@@ -3,6 +3,7 @@ import { ITodo } from "../types";
 import formatDate from "../helpers/formatDate";
 import { TodoContext } from "../../context";
 import { useContext } from "react";
+import { json } from "stream/consumers";
 
 export default function Todo(props: ITodo) {
   const todoStyle: string = props.completed ? ` completed` : "";
@@ -19,9 +20,7 @@ export default function Todo(props: ITodo) {
             onChange={(e) => props.toggleChecked(props.id, e.target.checked)}
           />
           <span className="todo__title-text">{props.title}</span>
-          <span className="todo__date">
-            {formatDate(currentTodo?.date as Date, "RU")}
-          </span>
+          <span className="todo__date">{}</span>
         </label>
 
         <button
