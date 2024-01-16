@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./datepicker.scss";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
@@ -18,8 +18,21 @@ export function ReactDatepicker(props: ReactDP) {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    props.updateTodo({ date: dates as Date[] });
+
+    // const test: Date[] = [new Date("2015-01-01"), new Date("2015-01-02")];
   };
+
+  useEffect(() => {
+    function getDates(): Date | Date[] {
+      if (!endDate) {
+        return startDate as Date;
+      } else {
+        return [startDate, endDate] as Date[];
+      }
+    }
+    props.updateTodo({ date: getDates() });
+  }, [startDate, endDate]);
+
   return (
     <DatePicker
       selected={startDate}

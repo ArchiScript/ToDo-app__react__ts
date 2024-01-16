@@ -7,25 +7,6 @@ export default function Form(props: IForm) {
   return (
     <>
       <form onSubmit={props.addTodos} className="todo-form">
-        {/* <Datepicker
-          airdatepicker={{
-            range: true,
-            multipleDatesSeparator: " - ",
-            onSelect: ({ date, datepicker }) => {
-              props.modifyCurrentTodo({ date: date });
-              datepicker.selectDate(date);
-            },
-            dateFormat(date) {
-              return date.toLocaleString("RU", {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric"
-              });
-            }
-          }}
-          modifyTodoDate={props.modifyCurrentTodo}
-        /> */}
-
         <ReactDatepicker updateTodo={props.modifyCurrentTodo}></ReactDatepicker>
         <div className="todo-form__new-todo">
           <input

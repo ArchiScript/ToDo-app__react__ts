@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.scss";
 import { Title } from "./components/title/Title";
 import Form from "./components/form/Form";
@@ -7,6 +7,7 @@ import Todos from "./components/todos/Todos";
 import { useState } from "react";
 import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
+import formatDate from "./components/helpers/formatDate";
 // import Datepicker from "./components/datepicker/Datepicker";
 
 import { TodoContext } from "./context";
@@ -14,31 +15,48 @@ import { TodoContext } from "./context";
 function App() {
   const [todos, setTodos] = useState<ITodo[]>(getTodoFromStorage());
   const [inputValue, setInputValue] = useState("");
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>(
-    createNewTodo()
-  );
+  const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>();
+
+  useEffect(() => {
+    function createNewTodo(): ITodo {
+      const newTodo = {
+        id: crypto.randomUUID(),
+        title: inputValue,
+        completed: false,
+        date: new Date(),
+        toggleChecked,
+        deleteTodo
+      };
+
+      return newTodo;
+    }
+    setCurrentTodo(createNewTodo());
+  }, [todos]);
+
+  function dateReviver(
+    date: string | Date | [string | Date, string | Date]
+  ): Date | Date[] {
+    if (Array.isArray(date)) {
+      return date.map((d) => new Date(d));
+    } else {
+      return new Date(date);
+    }
+  }
 
   function getTodoFromStorage(): ITodo[] {
     if (localStorage.getItem("TODOS") !== null) {
       const storageTodos: ITodo[] = JSON.parse(
-        localStorage.getItem("TODOS") as string
+        localStorage.getItem("TODOS") as string,
+        (key, value: string | Date | [string | Date, string | Date]) => {
+          if (key === "date") {
+            return dateReviver(value);
+          }
+          return value;
+        }
       );
       return storageTodos;
     }
     return [];
-  }
-
-  function createNewTodo(): ITodo {
-    const newTodo = {
-      id: crypto.randomUUID(),
-      title: inputValue,
-      completed: false,
-      date: currentDate,
-      toggleChecked,
-      deleteTodo
-    };
-    return newTodo;
   }
 
   function modifyCurrentTodo(todoPropertyObj: Partial<ITodo>): void {
@@ -75,10 +93,6 @@ function App() {
     setInputValue(e.target.value);
     modifyCurrentTodo({ title: e.target.value });
   };
-
-  function changeDate(date: Date) {
-    setCurrentDate(date);
-  }
 
   const addTodos = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
