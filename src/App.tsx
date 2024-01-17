@@ -19,7 +19,10 @@ function App() {
   const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(
     getFilteredTodos({})
   );
+  const [formVisible, setFormVisible] = useState<boolean>(false);
   // const [filterDate, setFilterDate] = useState<Date | undefined>();
+
+  console.log("formvisible:", formVisible);
 
   useEffect(() => {
     function createNewTodo(): ITodo {
@@ -141,20 +144,19 @@ function App() {
     }
   }
 
-  // function ChangeFilterDate(date: Date | undefined) {
-  //   setFilterDate(date);
-  // }
+  function changeFormVisible() {
+    setFormVisible((prev) => !prev);
+  }
 
   return (
     <>
       <Container>
         <Title txt="Todo App" />
-        <Filter
-          onSelect={filterTodos}
-          // changeFilterDate={ChangeFilterDate}
-        ></Filter>
+        <Filter onSelect={filterTodos}></Filter>
         <TodoContext.Provider value={currentTodo}>
           <Form
+            changeVisible={changeFormVisible}
+            visible={formVisible}
             modifyCurrentTodo={modifyCurrentTodo}
             addTodos={addTodos}
             inputValue={inputValue}

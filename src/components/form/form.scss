@@ -13,20 +13,125 @@
   color: rgb(110, 110, 110)
 }
 
+.todo__add {
+  width: 100%;
+  position: relative;
+}
+
+.inactive {
+  display: none !important;
+}
 
 .todo-form {
 
   width: 100%;
   display: flex;
   flex-direction: column;
-&__new-todo{
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
- 
+  border: 1px solid #666675;
+  border-radius: 3px;
+  padding: 30px 15px;
+  position: relative;
+
+  &__toggle {
+
+
+    z-index: 2;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    border: 1px solid #666675;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    border-radius: 2px;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, .1);
+    }
+
+  }
+
+  &__toggle-inner {
+    left: 1px;
+    top: -1px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: transform 0.3s;
+
+    &.closed {
+      left: 0;
+
+      &::before {
+        content: "";
+        height: 2px;
+        width: 100%;
+        background-color: #42cb6f;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        border-radius: 2px;
+
+      }
+
+      &::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        background-color: #42cb6f;
+        position: absolute;
+        top: calc(50%);
+        left: 0;
+        border-radius: 2px;
+
+        transform: rotate(90deg);
+
+      }
+    }
+
+
+
+
+    &.opened {
+      transform: rotate(45deg);
+
+      &::before {
+        content: "";
+        height: 2px;
+        width: 100%;
+        background-color: #F87A7A;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        border-radius: 2px;
+
+      }
+
+      &::after {
+        content: "";
+        height: 2px;
+        width: 100%;
+        background-color: #F87A7A;
+        position: absolute;
+        top: calc(50%);
+        left: 0;
+        border-radius: 2px;
+
+        transform: rotate(90deg);
+
+      }
+    }
+  }
+
+  &__new-todo {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
   &__input {
-   @extend %form-input;
+    @extend %form-input;
   }
 
   &__button {

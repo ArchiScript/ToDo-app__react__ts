@@ -25,7 +25,8 @@ export interface ITodos {
 export interface IForm {
   modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
   inputValue: string;
-  // todos: ITodo[];
+  visible: boolean;
+  changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
   addTodos: (e: FormEvent<HTMLFormElement>) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

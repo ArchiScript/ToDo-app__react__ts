@@ -46,8 +46,9 @@ export default function Filter(props: FilterOptions) {
   return (
     <div className="todo__filter">
       <div className="todo__filter-date">
-        <label className="todo__filter-date-text">
+        <label className="todo__filter-chbx-label">
           <input
+            className="todo__filter-chbx"
             type="checkbox"
             checked={filterOn}
             onChange={filterCheckboxHandler}

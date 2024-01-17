@@ -1,11 +1,23 @@
-.todo__filter{
+.todo__filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #666675;
+  border-radius: 10px;
   width: 100%;
   color: rgb(187, 187, 187);
 
-  &-date{
+  &-date {
     width: 100%;
     display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &-chbx {
+    cursor: pointer;
+    margin-right: 10px;
   }
 }
