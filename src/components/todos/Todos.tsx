@@ -17,6 +17,8 @@ export default function Todos(props: ITodos) {
       return <li className="no-todos">No todos</li>;
     }
   };
+
+  // const filteredTodos = props.filteredTodos();
   return (
     <>
       <ul className={props.className}>{mapTodos(props.todos)}</ul>

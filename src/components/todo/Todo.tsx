@@ -3,8 +3,6 @@ import { ITodo } from "../types";
 import formatDate from "../helpers/formatDate";
 import { TodoContext } from "../../context";
 import { useContext } from "react";
-import { json } from "stream/consumers";
-import { isPropertyAccessExpression } from "typescript";
 
 export default function Todo(props: ITodo) {
   const todoStyle: string = props.completed ? ` completed` : "";

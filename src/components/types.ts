@@ -25,7 +25,7 @@ export interface ITodos {
 export interface IForm {
   modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
   inputValue: string;
-  todos: ITodo[];
+  // todos: ITodo[];
   addTodos: (e: FormEvent<HTMLFormElement>) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }

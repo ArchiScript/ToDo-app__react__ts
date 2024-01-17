@@ -8,7 +8,7 @@ import { ITodo } from "../types";
 
 registerLocale("ru", ru);
 interface ReactDP {
-  updateTodo: (newTodo: Partial<ITodo>) => void;
+  updateTodo?: (newTodo: Partial<ITodo>) => void;
 }
 
 export function ReactDatepicker(props: ReactDP) {
@@ -18,8 +18,6 @@ export function ReactDatepicker(props: ReactDP) {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-
-    // const test: Date[] = [new Date("2015-01-01"), new Date("2015-01-02")];
   };
 
   useEffect(() => {
@@ -30,7 +28,9 @@ export function ReactDatepicker(props: ReactDP) {
         return [startDate, endDate] as Date[];
       }
     }
-    props.updateTodo({ date: getDates() });
+    if (props.updateTodo) {
+      props.updateTodo({ date: getDates() });
+    }
   }, [startDate, endDate]);
 
   return (

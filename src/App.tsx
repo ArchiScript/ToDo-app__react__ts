@@ -8,14 +8,18 @@ import { useState } from "react";
 import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
 import formatDate from "./components/helpers/formatDate";
-// import Datepicker from "./components/datepicker/Datepicker";
+import Filter from "./components/filter/Filter";
 
 import { TodoContext } from "./context";
 
 function App() {
-  const [todos, setTodos] = useState<ITodo[]>(getTodoFromStorage());
+  const [todoStorage, setTodoStorage] = useState<ITodo[]>(getTodoFromStorage());
   const [inputValue, setInputValue] = useState("");
   const [currentTodo, setCurrentTodo] = useState<ITodo | undefined>();
+  const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(
+    getFilteredTodos({})
+  );
+  // const [filterDate, setFilterDate] = useState<Date | undefined>();
 
   useEffect(() => {
     function createNewTodo(): ITodo {
@@ -31,7 +35,7 @@ function App() {
       return newTodo;
     }
     setCurrentTodo(createNewTodo());
-  }, [todos]);
+  }, [todoStorage]);
 
   function dateReviver(
     date: string | Date | [string | Date, string | Date]
@@ -67,13 +71,11 @@ function App() {
   }
 
   useEffect(() => {
-    localStorage.setItem("TODOS", JSON.stringify(todos));
-  }, [todos]);
-
-  console.log(todos);
+    localStorage.setItem("TODOS", JSON.stringify(todoStorage));
+  }, [todoStorage]);
 
   function toggleChecked(id: string, completed: boolean) {
-    setTodos((currentTodos) => {
+    setTodoStorage((currentTodos) => {
       return currentTodos.map((todo) => {
         if (todo.id === id) {
           return { ...todo, completed };
@@ -84,10 +86,14 @@ function App() {
   }
 
   function deleteTodo(id: string) {
-    setTodos((currentTodos) => {
+    setTodoStorage((currentTodos) => {
       return currentTodos.filter((todo) => todo.id !== id);
     });
   }
+
+  useEffect(() => {
+    filterTodos({});
+  }, [todoStorage]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -98,26 +104,65 @@ function App() {
     e.preventDefault();
 
     if (inputValue && inputValue.trim() !== "") {
-      setTodos((currentTodos) => [...currentTodos, currentTodo as ITodo]);
+      setTodoStorage((currentTodos) => [...currentTodos, currentTodo as ITodo]);
       setInputValue("");
     }
   };
+
+  function filterTodos(byProps: {
+    date?: Date | Date[];
+    id?: string;
+    title?: string;
+  }) {
+    setFilteredTodos(() => {
+      return getFilteredTodos(byProps);
+    });
+  }
+
+  function getFilteredTodos(byProps: {
+    date?: Date | Date[];
+    id?: string;
+    title?: string;
+  }) {
+    if ("date" in byProps) {
+      return todoStorage.filter((todo) => {
+        if (Array.isArray(todo.date) && Array.isArray(byProps.date)) {
+          let d = todo.date[0] as Date,
+            dp = byProps.date[0] as Date;
+          return formatDate(d, "RU") === formatDate(dp, "RU");
+        } else {
+          let d = todo.date as Date,
+            dp = byProps.date as Date;
+          return formatDate(d, "RU") === formatDate(dp, "RU");
+        }
+      });
+    } else {
+      return todoStorage;
+    }
+  }
+
+  // function ChangeFilterDate(date: Date | undefined) {
+  //   setFilterDate(date);
+  // }
 
   return (
     <>
       <Container>
         <Title txt="Todo App" />
+        <Filter
+          onSelect={filterTodos}
+          // changeFilterDate={ChangeFilterDate}
+        ></Filter>
         <TodoContext.Provider value={currentTodo}>
           <Form
             modifyCurrentTodo={modifyCurrentTodo}
-            todos={todos}
             addTodos={addTodos}
             inputValue={inputValue}
             handleInputChange={handleInputChange}
           />
           <Todos
             className="todo__list"
-            todos={todos}
+            todos={filteredTodos.length > 0 ? filteredTodos : todoStorage}
             toggleChecked={toggleChecked}
             deleteTodo={deleteTodo}
           />
