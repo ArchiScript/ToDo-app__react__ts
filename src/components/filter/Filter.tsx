@@ -23,13 +23,14 @@ export default function Filter(props: FilterOptions) {
     setStartDate(start);
     setEndDate(end);
   };
-  console.log("filterOn", filterOn);
-  console.log(startDate);
+
 
   useEffect(() => {
     if (filterOn) {
-      if (startDate) {
+      if (startDate && !endDate) {
         props.onSelect({ date: startDate as Date });
+      } else if (startDate && endDate) {
+        props.onSelect({ date: [startDate, endDate] });
       }
     } else {
       props.onSelect({});

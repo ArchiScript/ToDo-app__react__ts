@@ -9,7 +9,12 @@ import { ITodo } from "./components/types";
 import { ChangeEvent, FormEvent } from "react";
 import formatDate from "./components/helpers/formatDate";
 import Filter from "./components/filter/Filter";
-
+import {
+  hasCommonDate,
+  hasCommonDates
+} from "./components/helpers/compareDates";
+import { getDatesInRange } from "./components/helpers/getDatesInRange";
+import { dateReviver } from "./components/helpers/dateReviver";
 import { TodoContext } from "./context";
 
 function App() {
@@ -20,9 +25,6 @@ function App() {
     getFilteredTodos({})
   );
   const [formVisible, setFormVisible] = useState<boolean>(false);
-  // const [filterDate, setFilterDate] = useState<Date | undefined>();
-
-  console.log("formvisible:", formVisible);
 
   useEffect(() => {
     function createNewTodo(): ITodo {
@@ -39,16 +41,6 @@ function App() {
     }
     setCurrentTodo(createNewTodo());
   }, [todoStorage]);
-
-  function dateReviver(
-    date: string | Date | [string | Date, string | Date]
-  ): Date | Date[] {
-    if (Array.isArray(date)) {
-      return date.map((d) => new Date(d));
-    } else {
-      return new Date(date);
-    }
-  }
 
   function getTodoFromStorage(): ITodo[] {
     if (localStorage.getItem("TODOS") !== null) {
@@ -122,6 +114,27 @@ function App() {
     });
   }
 
+  function matchDates(dates: {
+    filterDate: Date | Date[];
+    todoDate: Date | Date[];
+  }): boolean {
+    const filterDate = Array.isArray(dates.filterDate)
+      ? dates.filterDate
+      : [dates.filterDate];
+    const todoDate = Array.isArray(dates.todoDate)
+      ? dates.todoDate
+      : [dates.todoDate];
+
+    const filterDatesRange = getDatesInRange(filterDate);
+    const todoDatesRange = getDatesInRange(todoDate);
+
+    if (!Array.isArray(todoDate)) {
+      return hasCommonDate(filterDatesRange, todoDate);
+    } else {
+      return hasCommonDates(filterDatesRange, todoDatesRange);
+    }
+  }
+
   function getFilteredTodos(byProps: {
     date?: Date | Date[];
     id?: string;
@@ -129,15 +142,12 @@ function App() {
   }) {
     if ("date" in byProps) {
       return todoStorage.filter((todo) => {
-        if (Array.isArray(todo.date) && Array.isArray(byProps.date)) {
-          let d = todo.date[0] as Date,
-            dp = byProps.date[0] as Date;
-          return formatDate(d, "RU") === formatDate(dp, "RU");
-        } else {
-          let d = todo.date as Date,
-            dp = byProps.date as Date;
-          return formatDate(d, "RU") === formatDate(dp, "RU");
-        }
+        const todoDate = Array.isArray(todo.date) ? todo.date : [todo.date];
+        console.log(getDatesInRange(todoDate));
+        return matchDates({
+          todoDate: todo.date,
+          filterDate: byProps.date as Date | Date[]
+        });
       });
     } else {
       return todoStorage;
@@ -164,7 +174,7 @@ function App() {
           />
           <Todos
             className="todo__list"
-            todos={filteredTodos.length > 0 ? filteredTodos : todoStorage}
+            todos={filteredTodos}
             toggleChecked={toggleChecked}
             deleteTodo={deleteTodo}
           />

@@ -18,7 +18,6 @@ export default function Todos(props: ITodos) {
     }
   };
 
-  // const filteredTodos = props.filteredTodos();
   return (
     <>
       <ul className={props.className}>{mapTodos(props.todos)}</ul>
