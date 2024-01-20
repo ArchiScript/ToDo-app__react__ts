@@ -16,6 +16,7 @@ import {
 import { getDatesInRange } from "./components/helpers/getDatesInRange";
 import { dateReviver } from "./components/helpers/dateReviver";
 import { TodoContext } from "./context";
+import { FilterObject } from "./components/types";
 
 function App() {
   const [todoStorage, setTodoStorage] = useState<ITodo[]>(getTodoFromStorage());
@@ -25,6 +26,7 @@ function App() {
     getFilteredTodos({})
   );
   const [formVisible, setFormVisible] = useState<boolean>(false);
+  const [commonFilterObj, setCommonFilterObj] = useState<FilterObject>({});
 
   useEffect(() => {
     function createNewTodo(): ITodo {
@@ -41,6 +43,10 @@ function App() {
     }
     setCurrentTodo(createNewTodo());
   }, [todoStorage]);
+
+  function populateFilterObject(filterObject: FilterObject): void {
+    setCommonFilterObj(filterObject);
+  }
 
   function getTodoFromStorage(): ITodo[] {
     if (localStorage.getItem("TODOS") !== null) {
@@ -87,7 +93,7 @@ function App() {
   }
 
   useEffect(() => {
-    filterTodos({});
+    filterTodos(commonFilterObj);
   }, [todoStorage]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +124,9 @@ function App() {
     filterDate: Date | Date[];
     todoDate: Date | Date[];
   }): boolean {
+    if (dates === undefined) {
+      return false;
+    }
     const filterDate = Array.isArray(dates.filterDate)
       ? dates.filterDate
       : [dates.filterDate];
@@ -137,21 +146,30 @@ function App() {
 
   function getFilteredTodos(byProps: {
     date?: Date | Date[];
-    id?: string;
+    completed?: boolean;
+    showCompleted?: boolean;
     title?: string;
   }) {
-    if ("date" in byProps) {
-      return todoStorage.filter((todo) => {
+    let resultedTodos: ITodo[] = [];
+
+    if (byProps.date) {
+      resultedTodos = todoStorage.filter((todo) => {
         const todoDate = Array.isArray(todo.date) ? todo.date : [todo.date];
-        console.log(getDatesInRange(todoDate));
+
         return matchDates({
-          todoDate: todo.date,
+          todoDate: todoDate,
           filterDate: byProps.date as Date | Date[]
         });
       });
     } else {
-      return todoStorage;
+      resultedTodos = todoStorage;
     }
+
+    if (byProps.showCompleted === false) {
+      resultedTodos = resultedTodos.filter((todo) => todo.completed === false);
+    }
+
+    return resultedTodos;
   }
 
   function changeFormVisible() {
@@ -162,7 +180,10 @@ function App() {
     <>
       <Container>
         <Title txt="Todo App" />
-        <Filter onSelect={filterTodos}></Filter>
+        <Filter
+          onSelect={filterTodos}
+          populateFilterObject={populateFilterObject}
+        ></Filter>
         <TodoContext.Provider value={currentTodo}>
           <Form
             changeVisible={changeFormVisible}

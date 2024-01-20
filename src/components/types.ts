@@ -30,3 +30,9 @@ export interface IForm {
   addTodos: (e: FormEvent<HTMLFormElement>) => void;
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
+export type FilterObject = {
+  date?: Date | Date[];
+  title?: string;
+  showCompleted?: boolean;
+};
