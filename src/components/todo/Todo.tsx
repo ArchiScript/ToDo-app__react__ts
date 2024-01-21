@@ -5,7 +5,20 @@ import { TodoContext } from "../../context";
 import { useContext } from "react";
 
 export default function Todo(props: ITodo) {
-  const todoStyle: string = props.completed ? ` completed` : "";
+  function isLate(date: Date | Date[]): boolean {
+    let late: boolean = false;
+    if (Array.isArray(date)) {
+      late = new Date() > date[1];
+    } else {
+      late = new Date() > date;
+    }
+    return late;
+  }
+ 
+
+  let todoStyle: string = props.completed ? ` completed` : "";
+  todoStyle += isLate(props.date) ? ` late` : "";
+
   const currentTodo = useContext(TodoContext);
 
   return (

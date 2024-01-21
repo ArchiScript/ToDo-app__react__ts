@@ -19,7 +19,6 @@ import { TodoContext } from "./context";
 import { FilterObject } from "./components/types";
 import { Chart } from "./components/gantt-chart/Chart";
 
-
 function App() {
   const [todoStorage, setTodoStorage] = useState<ITodo[]>(getTodoFromStorage());
   const [inputValue, setInputValue] = useState("");
@@ -214,7 +213,8 @@ function App() {
             arrow_curve: 5,
             padding: 18,
             view_mode: "Day",
-            date_format: "YYYY-MM-DD"
+            date_format: "YYYY-MM-DD",
+            language: "en"
           }}
         ></Chart>
       </Container>

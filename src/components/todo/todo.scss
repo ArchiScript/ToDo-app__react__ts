@@ -13,6 +13,9 @@
     align-items: flex-start;
     color: white;
     cursor: pointer;
+    &.late{
+      color:#F87A7A
+    }
   }
  
   &__date{
@@ -39,6 +42,8 @@
     margin-right: 20px;
     cursor: pointer;
   }
+
+ 
 }
 ul{
   list-style: none;

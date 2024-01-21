@@ -3,6 +3,7 @@ import Gantt from "frappe-gantt";
 import "frappe-gantt/dist/frappe-gantt.css";
 import { ITodo } from "../types";
 import formatDate from "../helpers/formatDate";
+import "./custom-chart.scss";
 
 export interface GanttProps {
   todos: ITodo[];
@@ -25,7 +26,7 @@ export function Chart(props: GanttProps) {
         id: todo.id,
         name: todo.title,
         start: taskDates[0],
-        end: taskDates[1],
+        end: taskDates[1] ?? taskDates[0],
         progress: 20,
         dependencies: ""
       });
