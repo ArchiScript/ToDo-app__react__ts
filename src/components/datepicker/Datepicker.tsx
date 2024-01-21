@@ -21,12 +21,12 @@ export default function Datepicker(props: datepickerProps) {
       });
     }
 
-    return () => {
-      if (datepicker.current) {
-        datepicker.current.destroy();
-        datepicker.current = null;
-      }
-    };
+    // return () => {
+    //   if (datepicker.current) {
+    //     datepicker.current.destroy();
+    //     datepicker.current = null;
+    //   }
+    // };
   }, [props]);
 
   useEffect(() => {

@@ -17,6 +17,8 @@ import { getDatesInRange } from "./components/helpers/getDatesInRange";
 import { dateReviver } from "./components/helpers/dateReviver";
 import { TodoContext } from "./context";
 import { FilterObject } from "./components/types";
+import { Chart } from "./components/gantt-chart/Chart";
+
 
 function App() {
   const [todoStorage, setTodoStorage] = useState<ITodo[]>(getTodoFromStorage());
@@ -200,6 +202,21 @@ function App() {
             deleteTodo={deleteTodo}
           />
         </TodoContext.Provider>
+        <Chart
+          todos={filteredTodos}
+          options={{
+            header_height: 50,
+            column_width: 30,
+            step: 24,
+            view_modes: ["Quarter Day", "Half Day", "Day", "Week", "Month"],
+            bar_height: 20,
+            bar_corner_radius: 3,
+            arrow_curve: 5,
+            padding: 18,
+            view_mode: "Day",
+            date_format: "YYYY-MM-DD"
+          }}
+        ></Chart>
       </Container>
     </>
   );
