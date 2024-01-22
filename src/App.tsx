@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./App.scss";
 import { Title } from "./components/title/Title";
 import Form from "./components/form/Form";
@@ -18,6 +18,9 @@ import { dateReviver } from "./components/helpers/dateReviver";
 import { TodoContext } from "./context";
 import { FilterObject } from "./components/types";
 import { Chart } from "./components/gantt-chart/Chart";
+import { AppStatesContext } from "./appStatesContext";
+import { useAppStatesContext } from "./appStatesContext";
+import { IAppStates } from "./components/types";
 
 function App() {
   const [todoStorage, setTodoStorage] = useState<ITodo[]>(getTodoFromStorage());
@@ -63,6 +66,10 @@ function App() {
       return storageTodos;
     }
     return [];
+  }
+
+  function resetCurrentTodo(todo: ITodo) {
+    setCurrentTodo(todo);
   }
 
   function modifyCurrentTodo(todoPropertyObj: Partial<ITodo>): void {
@@ -111,11 +118,7 @@ function App() {
     }
   };
 
-  function filterTodos(byProps: {
-    date?: Date | Date[];
-    id?: string;
-    title?: string;
-  }) {
+  function filterTodos(byProps: FilterObject) {
     setFilteredTodos(() => {
       return getFilteredTodos(byProps);
     });
@@ -145,12 +148,7 @@ function App() {
     }
   }
 
-  function getFilteredTodos(byProps: {
-    date?: Date | Date[];
-    completed?: boolean;
-    showCompleted?: boolean;
-    title?: string;
-  }) {
+  function getFilteredTodos(byProps: FilterObject) {
     let resultedTodos: ITodo[] = [];
 
     if (byProps.date) {
@@ -177,47 +175,65 @@ function App() {
     setFormVisible((prev) => !prev);
   }
 
+  const appStatesObject: IAppStates = {
+    inputValue,
+    currentTodo: currentTodo as ITodo,
+    filteredTodos,
+    formVisible,
+    commonFilterObj,
+    filterTodos,
+    populateFilterObject,
+    modifyCurrentTodo,
+    addTodos,
+    handleInputChange,
+    toggleChecked,
+    deleteTodo,
+    changeFormVisible
+  };
+
   return (
     <>
-      <Container>
-        <Title txt="Todo App" />
-        <Filter
-          onSelect={filterTodos}
-          populateFilterObject={populateFilterObject}
-        ></Filter>
-        <TodoContext.Provider value={currentTodo}>
-          <Form
-            changeVisible={changeFormVisible}
-            visible={formVisible}
-            modifyCurrentTodo={modifyCurrentTodo}
-            addTodos={addTodos}
-            inputValue={inputValue}
-            handleInputChange={handleInputChange}
-          />
-          <Todos
-            className="todo__list"
+      <AppStatesContext.Provider value={appStatesObject}>
+        <Container>
+          <Title txt="Todo App" />
+          <Filter
+            onSelect={filterTodos}
+            populateFilterObject={populateFilterObject}
+          ></Filter>
+          <TodoContext.Provider value={currentTodo}>
+            <Form
+              changeVisible={changeFormVisible}
+              visible={formVisible}
+              modifyCurrentTodo={modifyCurrentTodo}
+              addTodos={addTodos}
+              inputValue={inputValue}
+              handleInputChange={handleInputChange}
+            />
+            <Todos
+              className="todo__list"
+              todos={filteredTodos}
+              toggleChecked={toggleChecked}
+              deleteTodo={deleteTodo}
+            />
+          </TodoContext.Provider>
+          <Chart
             todos={filteredTodos}
-            toggleChecked={toggleChecked}
-            deleteTodo={deleteTodo}
-          />
-        </TodoContext.Provider>
-        <Chart
-          todos={filteredTodos}
-          options={{
-            header_height: 50,
-            column_width: 30,
-            step: 24,
-            view_modes: ["Quarter Day", "Half Day", "Day", "Week", "Month"],
-            bar_height: 20,
-            bar_corner_radius: 3,
-            arrow_curve: 5,
-            padding: 18,
-            view_mode: "Day",
-            date_format: "YYYY-MM-DD",
-            language: "en"
-          }}
-        ></Chart>
-      </Container>
+            options={{
+              header_height: 50,
+              column_width: 30,
+              step: 24,
+              view_modes: ["Quarter Day", "Half Day", "Day", "Week", "Month"],
+              bar_height: 20,
+              bar_corner_radius: 3,
+              arrow_curve: 5,
+              padding: 18,
+              view_mode: "Day",
+              date_format: "YYYY-MM-DD",
+              language: "en"
+            }}
+          ></Chart>
+        </Container>
+      </AppStatesContext.Provider>
     </>
   );
 }

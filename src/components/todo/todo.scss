@@ -1,29 +1,53 @@
-.todo{
+@import "../../assets/fonts/font-style";
+
+
+.todo {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 10px 0;
- 
- 
-  &__title{
-   
+
+
+  &__title {
+
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     color: white;
     cursor: pointer;
-    &.late{
-      color:#F87A7A
+
+    &.late {
+      color: #F87A7A
     }
   }
- 
-  &__date{
+
+  &__date {
     font-size: 13px;
     margin-left: 20px;
+    padding-top: 2px;
   }
-  
-  &__delete{
+
+  &__change{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &__edit {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    fill: white;
+    .icon-pencil::before{
+      color: #bbbbbb;
+    }
+    .icon-pencil:hover::before{
+      color: #e2e2e2;
+    }
+  }
+
+
+  &__delete {
     cursor: pointer;
     height: 30px;
     background-color: #f87a7a;
@@ -34,22 +58,26 @@
     padding: 5px 10px;
     margin-left: 20px;
   }
-  &__delete:hover{
-    
-    background-color:  rgb(252, 175, 175);
+
+  &__delete:hover {
+
+    background-color: rgb(252, 175, 175);
   }
-  &__chb{
+
+  &__chb {
     margin-right: 20px;
     cursor: pointer;
   }
 
- 
+
 }
-ul{
+
+ul {
   list-style: none;
   padding: 0;
 }
-.completed{
-text-decoration: line-through;
-color: rgb(201, 201, 201);
+
+.completed {
+  text-decoration: line-through;
+  color: rgb(201, 201, 201);
 }

@@ -31,8 +31,33 @@ export interface IForm {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+export interface IChangeForm {
+  inputValue: string;
+  visible: boolean;
+  modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
+  changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
+  resetCurrentTodo: (e: FormEvent<HTMLFormElement>) => void;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
 export type FilterObject = {
   date?: Date | Date[];
   title?: string;
   showCompleted?: boolean;
 };
+
+export interface IAppStates {
+  inputValue: string;
+  currentTodo: ITodo;
+  filteredTodos: ITodo[];
+  formVisible: boolean;
+  commonFilterObj: FilterObject;
+  filterTodos(byProps: FilterObject): void;
+  populateFilterObject(filterObject: FilterObject): void;
+  modifyCurrentTodo(todoPropertyObj: Partial<ITodo>): void;
+  addTodos: (e: FormEvent<HTMLFormElement>) => void;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  toggleChecked(id: string, completed: boolean): void;
+  deleteTodo(id: string): void;
+  changeFormVisible(): void;
+}

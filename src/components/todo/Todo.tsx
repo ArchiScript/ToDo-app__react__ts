@@ -3,8 +3,17 @@ import { ITodo } from "../types";
 import formatDate from "../helpers/formatDate";
 import { TodoContext } from "../../context";
 import { useContext } from "react";
+import "../../assets/fonts/font-style.css";
+import ChangeForm from "../form/ChangeForm";
+import { AppStatesContext } from "../../appStatesContext";
+import { useAppStatesContext } from "../../appStatesContext";
+
+// const appStatesContext = useAppStatesContext();
 
 export default function Todo(props: ITodo) {
+  // const appStatesContext = useContext(AppStatesContext);
+  const appStatesContext = useAppStatesContext();
+
   function isLate(date: Date | Date[]): boolean {
     let late: boolean = false;
     if (Array.isArray(date)) {
@@ -14,13 +23,12 @@ export default function Todo(props: ITodo) {
     }
     return late;
   }
- 
 
   let todoStyle: string = props.completed ? ` completed` : "";
-  todoStyle += isLate(props.date) ? ` late` : "";
+  todoStyle += isLate(props.date) && !props.completed ? ` late` : "";
 
-  const currentTodo = useContext(TodoContext);
-
+  // const currentTodo = useContext(TodoContext);
+  console.log(appStatesContext.currentTodo);
   return (
     <>
       <div className="todo">
@@ -36,13 +44,20 @@ export default function Todo(props: ITodo) {
             {formatDate(props.date, "RU") ?? ""}
           </span>
         </label>
-
-        <button
-          onClick={() => props.deleteTodo(props.id)}
-          className="todo__delete"
-        >
-          delete
-        </button>
+        <div className="todo__change">
+          <div className="todo__edit">
+            <div className="icon-pencil"></div>
+          </div>
+          <button
+            onClick={() => props.deleteTodo(props.id)}
+            className="todo__delete"
+          >
+            delete
+          </button>
+        </div>
+      </div>
+      <div className="todo__change-form">
+        {/* <ChangeForm ></ChangeForm> */}
       </div>
     </>
   );
