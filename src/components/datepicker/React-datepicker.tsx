@@ -14,6 +14,7 @@ interface ReactDP {
 export function ReactDatepicker(props: ReactDP) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
+
   const onChange = (dates: [Date | null, Date | null]) => {
     const [start, end] = dates;
     setStartDate(start);

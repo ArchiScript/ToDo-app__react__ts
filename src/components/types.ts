@@ -32,18 +32,24 @@ export interface IForm {
 }
 
 export interface IChangeForm {
-  inputValue: string;
-  visible: boolean;
-  modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
-  changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
-  resetCurrentTodo: (e: FormEvent<HTMLFormElement>) => void;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  formVisible: boolean;
+  // inputValue: string;
+  // visible: boolean;
+  // modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
+  // changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
+  // resetCurrentTodo: (e: FormEvent<HTMLFormElement>) => void;
+  // handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type FilterObject = {
   date?: Date | Date[];
   title?: string;
   showCompleted?: boolean;
+};
+export type ChangedTodoObject = {
+  title?: string;
+  date?: Date | Date[];
+  completed?: boolean;
 };
 
 export interface IAppStates {
@@ -60,4 +66,6 @@ export interface IAppStates {
   toggleChecked(id: string, completed: boolean): void;
   deleteTodo(id: string): void;
   changeFormVisible(): void;
+  resetCurrentTodo(todo: ITodo): void;
+  modifyTodoByStates(): void;
 }

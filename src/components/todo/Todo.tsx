@@ -2,7 +2,7 @@ import "./todo.scss";
 import { ITodo } from "../types";
 import formatDate from "../helpers/formatDate";
 import { TodoContext } from "../../context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "../../assets/fonts/font-style.css";
 import ChangeForm from "../form/ChangeForm";
 import { AppStatesContext } from "../../appStatesContext";
@@ -11,8 +11,13 @@ import { useAppStatesContext } from "../../appStatesContext";
 // const appStatesContext = useAppStatesContext();
 
 export default function Todo(props: ITodo) {
-  // const appStatesContext = useContext(AppStatesContext);
+  const [editFormVisible, setEditFormVisible] = useState<boolean>(false);
   const appStatesContext = useAppStatesContext();
+
+  function onEditHandler() {
+    setEditFormVisible((prev) => !prev);
+    appStatesContext.resetCurrentTodo(props);
+  }
 
   function isLate(date: Date | Date[]): boolean {
     let late: boolean = false;
@@ -26,8 +31,10 @@ export default function Todo(props: ITodo) {
 
   let todoStyle: string = props.completed ? ` completed` : "";
   todoStyle += isLate(props.date) && !props.completed ? ` late` : "";
+  let todoFormStyle: string = editFormVisible
+    ? ` edit-form-visible`
+    : "edit-form-hidden";
 
-  // const currentTodo = useContext(TodoContext);
   console.log(appStatesContext.currentTodo);
   return (
     <>
@@ -45,7 +52,7 @@ export default function Todo(props: ITodo) {
           </span>
         </label>
         <div className="todo__change">
-          <div className="todo__edit">
+          <div className="todo__edit" onClick={onEditHandler}>
             <div className="icon-pencil"></div>
           </div>
           <button
@@ -57,7 +64,7 @@ export default function Todo(props: ITodo) {
         </div>
       </div>
       <div className="todo__change-form">
-        {/* <ChangeForm ></ChangeForm> */}
+        <ChangeForm formVisible={editFormVisible}></ChangeForm>
       </div>
     </>
   );

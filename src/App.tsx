@@ -19,7 +19,6 @@ import { TodoContext } from "./context";
 import { FilterObject } from "./components/types";
 import { Chart } from "./components/gantt-chart/Chart";
 import { AppStatesContext } from "./appStatesContext";
-import { useAppStatesContext } from "./appStatesContext";
 import { IAppStates } from "./components/types";
 
 function App() {
@@ -77,6 +76,10 @@ function App() {
       ...(prevTodo as ITodo),
       ...todoPropertyObj
     }));
+  }
+
+  function modifyTodoByStates() {
+    setCurrentTodo((prevTodo) => prevTodo);
   }
 
   useEffect(() => {
@@ -188,7 +191,9 @@ function App() {
     handleInputChange,
     toggleChecked,
     deleteTodo,
-    changeFormVisible
+    changeFormVisible,
+    resetCurrentTodo,
+    modifyTodoByStates
   };
 
   return (

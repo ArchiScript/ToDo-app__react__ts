@@ -22,6 +22,7 @@
   display: none !important;
 }
 
+
 .todo-form {
 
   width: 100%;
@@ -31,6 +32,16 @@
   border-radius: 3px;
   padding: 30px 15px;
   position: relative;
+
+  &.active{
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__change-todo{
+    display: flex;
+    flex-direction: row;
+  }
 
   &__toggle {
 
@@ -172,4 +183,10 @@
       background-color: white;
     }
   }
+}
+
+.todo__change{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

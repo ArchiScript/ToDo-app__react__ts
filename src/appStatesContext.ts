@@ -7,6 +7,7 @@ export const AppStatesContext = createContext<IAppStates | undefined>(
 );
 
 export function useAppStatesContext() {
+  
   const appStates = useContext(AppStatesContext);
 
   if (appStates === undefined) {
