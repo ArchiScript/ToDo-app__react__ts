@@ -78,8 +78,16 @@ function App() {
     }));
   }
 
-  function modifyTodoByStates() {
-    setCurrentTodo((prevTodo) => prevTodo);
+  function modifyTodoStorage() {
+    setTodoStorage(()=>{
+      return todoStorage.map((todo)=> {
+        if(currentTodo && todo.id === currentTodo.id){
+          return {...currentTodo}
+        }
+        return todo;
+      })
+    })
+     
   }
 
   useEffect(() => {
@@ -193,7 +201,7 @@ function App() {
     deleteTodo,
     changeFormVisible,
     resetCurrentTodo,
-    modifyTodoByStates
+    modifyTodoStorage
   };
 
   return (

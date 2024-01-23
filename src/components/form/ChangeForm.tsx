@@ -27,7 +27,7 @@ export default function ChangeForm(props: IChangeForm) {
           <span className={`todo-form__toggle-inner${activeToggle}`}></span>
         </div> */}
         <form
-          onSubmit={appContext.modifyTodoByStates}
+          onSubmit={appContext.modifyTodoStorage}
           className={`todo-form${activeClass}`}
         >
           <ReactDatepicker

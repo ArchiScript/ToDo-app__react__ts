@@ -35,7 +35,6 @@ export default function Todo(props: ITodo) {
     ? ` edit-form-visible`
     : "edit-form-hidden";
 
-  console.log(appStatesContext.currentTodo);
   return (
     <>
       <div className="todo">

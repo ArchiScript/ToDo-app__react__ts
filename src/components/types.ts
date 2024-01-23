@@ -33,6 +33,7 @@ export interface IForm {
 
 export interface IChangeForm {
   formVisible: boolean;
+  // currentTodo: ITodo;
   // inputValue: string;
   // visible: boolean;
   // modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
@@ -67,5 +68,5 @@ export interface IAppStates {
   deleteTodo(id: string): void;
   changeFormVisible(): void;
   resetCurrentTodo(todo: ITodo): void;
-  modifyTodoByStates(): void;
+  modifyTodoStorage(): void;
 }
