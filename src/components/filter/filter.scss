@@ -5,17 +5,23 @@
   padding: 20px 15px;
   margin-bottom: 20px;
   border: 1px solid #666675;
-  border-radius: 10px;
+  border-radius: 4px;
   width: 100%;
   color: rgb(187, 187, 187);
+  &>div{
+    height: 2rem;
+  }
 
   &-date {
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    input::placeholder{
+      
+    }
   }
-
+  &-chbx-label{width: 230px;}
   &-chbx {
     cursor: pointer;
     margin-right: 10px;

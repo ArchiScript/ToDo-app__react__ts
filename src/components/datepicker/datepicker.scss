@@ -2,6 +2,7 @@
 .todo__detepicker,.react-datepicker__input-container input{
   @extend %form-input;
   max-width: 200px;
-  align-self: flex-start;
-  margin-bottom: 20px;
+}
+.react-datepicker__input-container{
+ margin-bottom: 10px;
 }

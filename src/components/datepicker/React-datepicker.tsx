@@ -69,6 +69,7 @@ export function ReactDatepicker(props: ReactDP) {
       locale="ru"
       dateFormat="dd.MM.yyyy"
       selectsRange
+      placeholderText="your date"
     />
   );
 }
