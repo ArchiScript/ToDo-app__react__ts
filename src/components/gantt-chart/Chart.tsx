@@ -11,8 +11,8 @@ export interface GanttProps {
 }
 
 export function Chart(props: GanttProps) {
-  const $chartContaner = useRef<HTMLDivElement | null>(null);
-  // const $chartContaner = useRef<SVGSVGElement | null>(null);
+  // const $chartContaner = useRef<HTMLDivElement | null>(null);
+  const $chartContaner = useRef<SVGSVGElement | null>(null);
   const chartInstance = useRef<Gantt>();
 
   function getTodoTasks(todos: ITodo[]): Gantt.Task[] {
@@ -50,6 +50,10 @@ export function Chart(props: GanttProps) {
     };
   }, [props]);
 
-  // return <div className="todo__chart" ref={$chartContaner}></div>;
-  return <div className="todo__chart" ref={$chartContaner}></div>;
+  return (
+    <div className="chart-container">
+      <svg id="gantt-1" ref={$chartContaner}></svg>
+    </div>
+  );
+  // return <div className="chart-container" ref={$chartContaner}></div>;
 }

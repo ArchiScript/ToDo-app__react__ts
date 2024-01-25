@@ -1,16 +1,22 @@
-.grid-header{
-  // fill:#525265 !important ;
-}
-.grid{
-  display: block !important;
-  height: 450px !important;
-}
-.todo__chart{
-  margin-top: 20px;
-  display: flex;
-  width: 100%;
 
+svg {
+  overflow: hidden;
+  vertical-align: middle;
 }
-.gantt{
-  height: 325px;
+
+.chart-container {
+  // height: 500px;
+  max-height: 80vh;
+  margin-top: 20px;
+  width: 100%;
+  // overflow-y: scroll;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // min-width: 0;
+  word-wrap: break-word;
+  background-color: white;
+  background-clip: border-box;
+  // border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: 4px;
 }
