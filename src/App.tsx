@@ -79,15 +79,14 @@ function App() {
   }
 
   function modifyTodoStorage() {
-    setTodoStorage(()=>{
-      return todoStorage.map((todo)=> {
-        if(currentTodo && todo.id === currentTodo.id){
-          return {...currentTodo}
+    setTodoStorage(() => {
+      return todoStorage.map((todo) => {
+        if (currentTodo && todo.id === currentTodo.id) {
+          return { ...currentTodo };
         }
         return todo;
-      })
-    })
-     
+      });
+    });
   }
 
   useEffect(() => {
@@ -161,22 +160,27 @@ function App() {
 
   function getFilteredTodos(byProps: FilterObject) {
     let resultedTodos: ITodo[] = [];
+    if (byProps) {
+      if (byProps.date) {
+        resultedTodos = todoStorage.filter((todo) => {
+          const todoDate = Array.isArray(todo.date) ? todo.date : [todo.date];
 
-    if (byProps.date) {
-      resultedTodos = todoStorage.filter((todo) => {
-        const todoDate = Array.isArray(todo.date) ? todo.date : [todo.date];
-
-        return matchDates({
-          todoDate: todoDate,
-          filterDate: byProps.date as Date | Date[]
+          return matchDates({
+            todoDate: todoDate,
+            filterDate: byProps.date as Date | Date[]
+          });
         });
-      });
+      } else {
+        resultedTodos = todoStorage;
+      }
+
+      if (byProps.showCompleted === false) {
+        resultedTodos = resultedTodos.filter(
+          (todo) => todo.completed === false
+        );
+      }
     } else {
       resultedTodos = todoStorage;
-    }
-
-    if (byProps.showCompleted === false) {
-      resultedTodos = resultedTodos.filter((todo) => todo.completed === false);
     }
 
     return resultedTodos;
@@ -189,6 +193,7 @@ function App() {
   const appStatesObject: IAppStates = {
     inputValue,
     currentTodo: currentTodo as ITodo,
+    todoStorage,
     filteredTodos,
     formVisible,
     commonFilterObj,
@@ -209,28 +214,12 @@ function App() {
       <AppStatesContext.Provider value={appStatesObject}>
         <Container>
           <Title txt="Todo App" />
-          <Filter
-            onSelect={filterTodos}
-            populateFilterObject={populateFilterObject}
-          ></Filter>
+          <Filter></Filter>
           <TodoContext.Provider value={currentTodo}>
-            <Form
-              changeVisible={changeFormVisible}
-              visible={formVisible}
-              modifyCurrentTodo={modifyCurrentTodo}
-              addTodos={addTodos}
-              inputValue={inputValue}
-              handleInputChange={handleInputChange}
-            />
-            <Todos
-              className="todo__list"
-              todos={filteredTodos}
-              toggleChecked={toggleChecked}
-              deleteTodo={deleteTodo}
-            />
+            <Form />
+            <Todos />
           </TodoContext.Provider>
           <Chart
-            todos={filteredTodos}
             options={{
               header_height: 50,
               column_width: 30,

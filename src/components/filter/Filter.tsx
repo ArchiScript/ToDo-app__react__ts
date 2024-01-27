@@ -5,18 +5,16 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import "react-datepicker/dist/react-datepicker.css";
 import type { FilterObject } from "../../components/types";
+import { useAppStatesContext } from "../../appStatesContext";
 
-interface FilterOptions {
-  onSelect: (byProps: FilterObject) => void;
-  populateFilterObject: (obj: FilterObject) => void;
-}
-
-export default function Filter(props: FilterOptions) {
+export default function Filter() {
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [filterByDateOn, setFilterByDateOn] = useState<boolean>(false);
   const [showCompleted, setShowCompleted] = useState<boolean>(true);
   const [filterObject, setFilterObject] = useState<FilterObject>({});
+
+  const appStates = useAppStatesContext();
 
   const onFilterDateChange = (dates: [Date | null, Date | null]) => {
     const [start, end] = dates;
@@ -52,8 +50,8 @@ export default function Filter(props: FilterOptions) {
   }, [showCompleted]);
 
   useEffect(() => {
-    props.onSelect(filterObject as FilterObject);
-    props.populateFilterObject(filterObject as FilterObject);
+    appStates.filterTodos(filterObject as FilterObject);
+    appStates.populateFilterObject(filterObject as FilterObject);
   }, [filterObject]);
 
   function filterByDateHandler(): void {
