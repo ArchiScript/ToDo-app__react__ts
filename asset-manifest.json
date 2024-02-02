@@ -1,13 +1,17 @@
 {
   "files": {
-    "main.css": "/ToDo-app__react__ts/static/css/main.286bc577.css",
-    "main.js": "/ToDo-app__react__ts/static/js/main.358a7621.js",
+    "main.css": "/ToDo-app__react__ts/static/css/main.e37e2f65.css",
+    "main.js": "/ToDo-app__react__ts/static/js/main.f8facb6a.js",
+    "static/media/icomoon.svg?3lvd2y": "/ToDo-app__react__ts/static/media/icomoon.4fbbd47a2006c4bc11e3.svg",
+    "static/media/icomoon.eot?3lvd2y": "/ToDo-app__react__ts/static/media/icomoon.8f1c8af50b54cf2c4dfd.eot",
+    "static/media/icomoon.woff?3lvd2y": "/ToDo-app__react__ts/static/media/icomoon.6be871434aae9f59d1b6.woff",
+    "static/media/icomoon.ttf?3lvd2y": "/ToDo-app__react__ts/static/media/icomoon.e79100ff3a2c695ab4e7.ttf",
     "index.html": "/ToDo-app__react__ts/index.html",
-    "main.286bc577.css.map": "/ToDo-app__react__ts/static/css/main.286bc577.css.map",
-    "main.358a7621.js.map": "/ToDo-app__react__ts/static/js/main.358a7621.js.map"
+    "main.e37e2f65.css.map": "/ToDo-app__react__ts/static/css/main.e37e2f65.css.map",
+    "main.f8facb6a.js.map": "/ToDo-app__react__ts/static/js/main.f8facb6a.js.map"
   },
   "entrypoints": [
-    "static/css/main.286bc577.css",
-    "static/js/main.358a7621.js"
+    "static/css/main.e37e2f65.css",
+    "static/js/main.f8facb6a.js"
   ]
 }
