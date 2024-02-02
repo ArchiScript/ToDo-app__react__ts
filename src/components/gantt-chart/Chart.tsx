@@ -6,14 +6,15 @@ import formatDate from "../helpers/formatDate";
 import "./custom-chart.scss";
 import { useAppStatesContext } from "../../appStatesContext";
 
-export interface GanttProps {
+export interface IChart {
   options: Gantt.Options;
 }
 
-export function Chart(props: GanttProps) {
+export function Chart(props: IChart) {
   const appStates = useAppStatesContext();
 
   const $chartContaner = useRef<SVGSVGElement | null>(null);
+
   const chartInstance = useRef<Gantt | undefined>();
 
   function getTodoTasks(todos: ITodo[]): Gantt.Task[] {
@@ -30,7 +31,7 @@ export function Chart(props: GanttProps) {
           name: todo.title,
           start: taskDates[0],
           end: taskDates[1] ?? taskDates[0],
-          progress: 20,
+          progress: 0,
           dependencies: ""
         });
       });
@@ -40,7 +41,7 @@ export function Chart(props: GanttProps) {
         name: "no tasks",
         start: formatDate(new Date(), "en-CA"),
         end: formatDate(new Date(), "en-CA"),
-        progress: 20,
+        progress: 0,
         dependencies: ""
       });
     }
@@ -49,20 +50,19 @@ export function Chart(props: GanttProps) {
   }
 
   useEffect(() => {
-    const tasks = getTodoTasks(appStates.filteredTodos);
     if ($chartContaner.current) {
-      chartInstance.current = new Gantt(
-        $chartContaner.current,
-        tasks,
-        props.options
-      ) as Gantt;
-    }
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current = undefined;
+      const tasks = getTodoTasks(appStates.filteredTodos);
+      if (!chartInstance.current) {
+        chartInstance.current = new Gantt(
+          $chartContaner.current as SVGSVGElement,
+          tasks,
+          props.options
+        ) as Gantt;
+      } else {
+        chartInstance.current.refresh(tasks);
       }
-    };
-  }, [props, appStates.filteredTodos]);
+    }
+  }, [props.options, appStates.filteredTodos, getTodoTasks]);
 
   return (
     <div className="chart-container">

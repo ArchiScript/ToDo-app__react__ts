@@ -9,7 +9,7 @@ svg {
   max-height: 80vh;
   margin-top: 20px;
   width: 100%;
-  // overflow-y: scroll;
+  overflow-y: scroll;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -21,16 +21,3 @@ svg {
   border-radius: 4px;
 }
 
-#gantt-1{
-  position: relative;
-&::after{
-  content: "";
-  position: absolute;
-  height: 50px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: red;
-  z-index: 1000;
-}
-}

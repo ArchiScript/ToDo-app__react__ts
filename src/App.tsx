@@ -191,10 +191,10 @@ function App() {
   }
 
   const appStatesObject: IAppStates = {
-    inputValue,
-    currentTodo: currentTodo as ITodo,
     todoStorage,
     filteredTodos,
+    inputValue,
+    currentTodo: currentTodo as ITodo,
     formVisible,
     commonFilterObj,
     filterTodos,

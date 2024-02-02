@@ -22,24 +22,10 @@ export interface ITodos {
   // toggleChecked(id: string, completed: boolean): void;
   // deleteTodo(id: string): void;
 }
-export interface IForm {
-  // modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
-  // inputValue: string;
-  // visible: boolean;
-  // changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
-  // addTodos: (e: FormEvent<HTMLFormElement>) => void;
-  // handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
+export interface IForm {}
 
 export interface IChangeForm {
   formVisible: boolean;
-  // currentTodo: ITodo;
-  // inputValue: string;
-  // visible: boolean;
-  // modifyCurrentTodo: (newTodo: Partial<ITodo>) => void;
-  // changeVisible: (e: React.MouseEvent<HTMLElement>) => void;
-  // resetCurrentTodo: (e: FormEvent<HTMLFormElement>) => void;
-  // handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export type FilterObject = {
