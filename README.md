@@ -1,46 +1,122 @@
-# Getting Started with Create React App
+#  React Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+![GitHub repo size](https://img.shields.io/github/repo-size/ArchiScript/ToDo-app__react__ts) ![GitHub last commit](https://img.shields.io/github/last-commit/ArchiScript/ToDo-app__react__ts) ![GitHub top language](https://img.shields.io/github/languages/top/ArchiScript/ToDo-app__react__ts) ![Static Badge](https://img.shields.io/badge/tech_stack-react_%2F_typescript_%2F_scss-orange)
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Description
 
-### `npm test`
+Introducing a React Todo App, a powerful and intuitive task management tool designed to enhance your productivity. This feature-rich application goes beyond basic to-do lists, offering dynamic date filtering, completed tasks tracking, and a visually appealing Gantt chart for comprehensive task overview.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Reference
+**[Watch React Todo App on GitHub Pages][gh-pages]**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+&#13;
+&#13;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Build details
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Node version:** `v18.12.1`
 
-### `npm run eject`
+**Dependencies:**
+```
+  "@testing-library/jest-dom": "^5.17.0",
+  "@testing-library/react": "^13.4.0",
+  "@testing-library/user-event": "^13.5.0",
+  "@types/frappe-gantt": "^0.6.4",
+  "@types/jest": "^27.5.2",
+  "@types/node": "^16.18.68",
+  "@types/react": "^18.2.45",
+  "@types/react-dom": "^18.2.18",
+  "air-datepicker": "^3.4.0",
+  "frappe-gantt": "^0.6.1",
+  "react": "^18.2.0",
+  "react-datepicker": "^4.25.0",
+  "react-dom": "^18.2.0",
+  "react-scripts": "5.0.1",
+  "sass": "^1.69.5",
+  "typescript": "^4.9.5",
+  "web-vitals": "^2.1.4"
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  **Development dependencies:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  ```
+  "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+  "@types/react-datepicker": "^4.19.5",
+  "gh-pages": "^6.1.1"
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  ```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  ## Commands
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Installation**
+```
+npm install
+ ```
+**Server start:**
+```
+npm run start
+```
+**Project build:**
+```
+npm run build
+```
+**Publish:**
+```
+npm run deploy
+```
+
+
+
+## Use
+
+**Choosing date range to filter todos**
+
+![screen-filter](src/assets/images/screen_filter_date.png)
+
+
+&#13;
+&#13;
+**Adding new tasks**
+
+![screen-filter](src/assets/images/screen_add.png)
+
+&#13;
+&#13;
+**Getting a bunch of tasks representation in gantt chart**
+
+![screen-filter](src/assets/images/screen_tasks.png)
+
+
+
+&#13;
+&#13;
+
+<details>
+  <summary><b>Project folder structure</b></summary>
+  <pre>
+  src
+    ├───assets
+    │   ├───fonts
+    │   └───images
+    └───components
+        ├───container
+        ├───datepicker
+        ├───filter
+        ├───form
+        ├───gantt-chart
+        ├───helpers
+        ├───title
+        ├───todo
+        └───todos
+  </pre>
+</details>
+  
+
+[gh-pages]: https://github.com/ArchiScript/ToDo-app__react__ts.git
