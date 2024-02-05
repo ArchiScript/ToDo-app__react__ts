@@ -78,20 +78,20 @@ npm run deploy
 
 **Choosing date range to filter todos**
 
-![screen-filter](src/assets/images/screen_filter_date.png)
+![screen-filter](/src/assets/images/screen_filter_date.png)
 
 
 &#13;
 &#13;
 **Adding new tasks**
 
-![screen-filter](src/assets/images/screen_add.png)
+![screen-add](/src/assets/images/screen_add.png)
 
 &#13;
 &#13;
 **Getting a bunch of tasks representation in gantt chart**
 
-![screen-filter](src/assets/images/screen_tasks.png)
+![screen-todo](/src/assets/images/screen_tasks.png)
 
 
 
@@ -119,4 +119,4 @@ npm run deploy
 </details>
   
 
-[gh-pages]: https://github.com/ArchiScript/ToDo-app__react__ts.git
+[gh-pages]: https://archiscript.github.io/ToDo-app__react__ts/
